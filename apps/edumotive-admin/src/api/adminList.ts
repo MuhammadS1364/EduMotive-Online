@@ -3,7 +3,7 @@ import { createEndpoint } from 'zitejs/backend';
 import { assertAdmin } from '../lib/adminAuth';
 import { zite } from 'zitejs/db';
 
-const TABLES = ['siteSettings', 'sections', 'tiers', 'badges', 'authors', 'issues', 'articles', 'letters', 'programs', 'results', 'teamMembers', 'plans', 'subscriptions', 'ads', 'notes', 'profiles', 'adPlans', 'heroSlides'] as const;
+const TABLES = ['siteSettings', 'sections', 'tiers', 'badges', 'authors', 'issues', 'articles', 'letters', 'programs', 'results', 'teamMembers', 'plans', 'subscriptions', 'ads', 'notes', 'profiles', 'adPlans', 'heroSlides', 'news'] as const;
 
 export default createEndpoint({
   description: 'Lists every record of a table for the admin panel',

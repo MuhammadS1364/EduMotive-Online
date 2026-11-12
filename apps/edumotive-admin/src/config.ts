@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, FileText, Layers, Users, Award, BookOpen, GraduationCap, Trophy, UserSquare2,
-  CreditCard, Package, Megaphone, Mail, StickyNote, Settings, UserCircle, GalleryHorizontal,
+  CreditCard, Package, Megaphone, Mail, StickyNote, Settings, UserCircle, GalleryHorizontal, Newspaper,
 } from 'lucide-react';
 import type { AdminListInputType } from 'zitejs/api';
 
@@ -21,6 +21,12 @@ export const RESOURCES: Resource[] = [
       { key: 'subtitle', label: 'Subtitle', type: 'textarea' }, { key: 'buttonText', label: 'Button text', type: 'text' },
       { key: 'link', label: 'Button link (e.g. /magazine or https://…)', type: 'text' },
       { key: 'sortOrder', label: 'Order', type: 'number', list: true }, { key: 'active', label: 'Active', type: 'bool', list: true },
+    ] },
+  { path: 'news', title: 'News', icon: Newspaper, table: 'news', titleKey: 'title', description: 'News & updates shown on the News page and home page.', defaults: { published: true },
+    fields: [
+      { key: 'image', label: 'Image', type: 'image', list: true }, { key: 'title', label: 'Title', type: 'text', list: true, required: true },
+      { key: 'publishedDate', label: 'Date', type: 'date', list: true }, { key: 'summary', label: 'Summary', type: 'textarea' },
+      { key: 'body', label: 'Full story', type: 'textarea' }, { key: 'published', label: 'Published', type: 'bool', list: true },
     ] },
   { path: 'articles', title: 'Articles', icon: FileText, table: 'articles', titleKey: 'title', description: 'Write, edit, approve and publish articles. Pending = submitted by students/authors.',
     filterTabs: { key: 'status', values: YES }, defaults: { status: 'Draft' },

@@ -18,15 +18,14 @@ import { adminLogin } from 'zitejs/api';
 import { SESSION_KEY } from './lib/session';
 
 function Login({ onOk }: { onOk: () => void }) {
-  const [u, setU] = useState('');
-  const [p, setP] = useState('');
+  const [code, setCode] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
-    try { const r = await adminLogin({ username: u, password: p }); sessionStorage.setItem(SESSION_KEY, r.key); onOk(); }
-    catch { setErr('Incorrect username or password'); } finally { setBusy(false); }
+    try { const r = await adminLogin({ code }); sessionStorage.setItem(SESSION_KEY, r.key); onOk(); }
+    catch { setErr('Incorrect admin code'); } finally { setBusy(false); }
   };
   return (
     <div className="min-h-screen grid place-items-center p-4 bg-primary">
@@ -35,10 +34,9 @@ function Login({ onOk }: { onOk: () => void }) {
           <span className="font-display text-4xl font-black">Edu<span className="text-accent">Motive</span></span>
           <p className="kicker text-muted-foreground flex items-center justify-center gap-1"><Lock className="h-3 w-3" />Admin panel</p>
         </div>
-        <div className="space-y-1.5"><Label>Username</Label><Input value={u} onChange={(e) => { setU(e.target.value); setErr(''); }} autoFocus /></div>
-        <div className="space-y-1.5"><Label>Password</Label><Input type="password" value={p} onChange={(e) => { setP(e.target.value); setErr(''); }} /></div>
+        <div className="space-y-1.5"><Label>Admin code</Label><Input type="password" value={code} onChange={(e) => { setCode(e.target.value); setErr(''); }} autoFocus placeholder="Enter access code" /></div>
         {err && <p className="text-sm text-destructive">{err}</p>}
-        <Button type="submit" className="w-full" disabled={!u || !p || busy}>Sign in</Button>
+        <Button type="submit" className="w-full" disabled={!code || busy}>Open admin</Button>
       </form>
     </div>
   );

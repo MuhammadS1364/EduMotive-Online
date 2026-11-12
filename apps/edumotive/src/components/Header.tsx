@@ -13,8 +13,9 @@ export function useNavItems() {
   return [
     { to: '/', label: 'Home' },
     { to: '/articles', label: 'Articles' },
-    { to: '/magazine', label: 'Magazine' },
     { to: '/authors', label: 'Authors' },
+    { to: '/magazine', label: 'Magazine' },
+    { to: '/news', label: 'News' },
     ...(s?.showPrograms ? [{ to: '/programs', label: 'Programs' }] : []),
     ...(s?.showResults ? [{ to: '/results', label: 'Results' }] : []),
     ...(s?.showSubscribe ? [{ to: '/subscribe', label: 'Subscribe' }] : []),

@@ -4,3 +4,10 @@ dist
 .tsbuildinfo
 __zite__*
 .npmrc
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage
+.vite

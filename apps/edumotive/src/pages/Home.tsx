@@ -5,19 +5,24 @@ import { Skeleton } from '@project/components/ui/skeleton';
 import { useData, fmtDate } from '../lib/data';
 import ArticleCard from '../components/ArticleCard';
 import HeroSlider from '../components/HeroSlider';
+import { useState } from 'react';
+import Reveal from '../components/Reveal';
+import { useNews, NewsCard, NewsDialog, type NewsItem } from './News';
 import { AuthorAvatar, TierPill, PenName } from '../components/AuthorBits';
 
 function SectionHead({ title, to }: { title: string; to?: string }) {
   return (
-    <div className="flex items-end justify-between border-b-2 border-foreground pb-2 mb-6">
+    <Reveal className="flex items-end justify-between border-b-2 border-foreground pb-2 mb-6">
       <h2 className="text-2xl md:text-3xl font-black">{title}</h2>
       {to && <Link to={to} className="text-sm font-semibold flex items-center gap-1 hover:text-foreground/70">View all<ArrowRight className="h-4 w-4" /></Link>}
-    </div>
+    </Reveal>
   );
 }
 
 export default function Home() {
   const { catalog, site } = useData();
+  const news = useNews();
+  const [open, setOpen] = useState<NewsItem | null>(null);
   if (!catalog) return <div className="container mx-auto px-4 py-10 grid gap-6 md:grid-cols-3"><Skeleton className="h-96 md:col-span-2 rounded-3xl" /><Skeleton className="h-96 rounded-3xl" /></div>;
   const arts = catalog.articles;
   const hero = arts.find((a) => a.featured) ?? arts[0];
@@ -50,21 +55,6 @@ export default function Home() {
         </section>
       )}
 
-      {issue && (
-        <section className="glass-strong rounded-[2rem] p-6 md:p-10 grid md:grid-cols-[240px_1fr] gap-8 items-center">
-          <img src={issue.cover || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600'} alt={issue.title} className="w-48 md:w-full mx-auto rounded-xl shadow-2xl rotate-[-2deg]" />
-          <div className="space-y-4">
-            <p className="kicker text-muted-foreground">Current Issue · {fmtDate(issue.issueDate)}</p>
-            <h2 className="text-3xl md:text-5xl font-black">{issue.title}</h2>
-            {issue.description && <p className="text-muted-foreground max-w-2xl">{issue.description}</p>}
-            <div className="flex gap-3 flex-wrap">
-              <Button asChild size="lg" className="rounded-full"><Link to={`/magazine/${issue.id}`}><BookOpen className="h-4 w-4 mr-2" />Read issue</Link></Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full"><Link to="/magazine">All issues</Link></Button>
-            </div>
-          </div>
-        </section>
-      )}
-
       {sections.slice(0, 4).map((s) => {
         const list = arts.filter((a) => a.section === s.name).slice(0, 3);
         if (!list.length) return null;
@@ -81,6 +71,28 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </section>
+      )}
+
+      {issue && (
+        <Reveal><section className="glass-strong rounded-[2rem] p-6 md:p-10 grid md:grid-cols-[240px_1fr] gap-8 items-center">
+          <img src={issue.cover || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600'} alt={issue.title} className="w-48 md:w-full mx-auto rounded-xl shadow-2xl rotate-[-2deg]" />
+          <div className="space-y-4">
+            <p className="kicker text-muted-foreground">Current Issue · {fmtDate(issue.issueDate)}</p>
+            <h2 className="text-3xl md:text-5xl font-black">{issue.title}</h2>
+            {issue.description && <p className="text-muted-foreground max-w-2xl">{issue.description}</p>}
+            <div className="flex gap-3 flex-wrap">
+              <Button asChild size="lg" className="rounded-full"><Link to={`/magazine/${issue.id}`}><BookOpen className="h-4 w-4 mr-2" />Read issue</Link></Button>
+              <Button asChild size="lg" variant="outline" className="rounded-full"><Link to="/magazine">All issues</Link></Button>
+            </div>
+          </div>
+        </section></Reveal>
+      )}
+
+      {news && news.length > 0 && (
+        <section><SectionHead title="News & Updates" to="/news" />
+          <div className="grid gap-6 md:grid-cols-3">{news.slice(0, 3).map((n, i) => <NewsCard key={n.id} n={n} i={i} onOpen={() => setOpen(n)} />)}</div>
+          <NewsDialog n={open} onClose={() => setOpen(null)} />
         </section>
       )}
 

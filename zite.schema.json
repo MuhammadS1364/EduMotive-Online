@@ -2383,6 +2383,72 @@
           }
         }
       ]
+    },
+    {
+      "id": "t71gUosJtNA",
+      "sdkName": "news",
+      "name": "News",
+      "primaryFieldId": "fvPDdivsa9k",
+      "fields": [
+        {
+          "id": "fvPDdivsa9k",
+          "sdkName": "title",
+          "definition": {
+            "name": "Title",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fv6g6XzpXNy",
+          "sdkName": "summary",
+          "definition": {
+            "name": "Summary",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f6449MyqWFh",
+          "sdkName": "body",
+          "definition": {
+            "name": "Body",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fkkq4bRf4tA",
+          "sdkName": "image",
+          "definition": {
+            "name": "Image",
+            "type": "url",
+            "template": {}
+          }
+        },
+        {
+          "id": "f2U9WBtgijh",
+          "sdkName": "publishedDate",
+          "definition": {
+            "name": "Published Date",
+            "type": "date",
+            "template": {
+              "dateFormat": "local"
+            }
+          }
+        },
+        {
+          "id": "f9cYbdrRUov",
+          "sdkName": "published",
+          "definition": {
+            "name": "Published",
+            "type": "checkbox",
+            "template": {
+              "defaultValue": true
+            }
+          }
+        }
+      ]
     }
   ]
 }

@@ -22,6 +22,20 @@ import Profile from './pages/Profile';
 import Write from './pages/Write';
 import Advertise from './pages/Advertise';
 import Contact from './pages/Contact';
+import News from './pages/News';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
+
+function PageTransition() {
+  const loc = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div key={loc.pathname} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 function Onboarding() {
   const { user } = useAuth();
@@ -64,7 +78,7 @@ function Layout() {
     <div className="relative min-h-screen flex flex-col">
       <div className="liquid-bg"><div className="blob b1" /><div className="blob b2" /><div className="blob b3" /></div>
       <Header />
-      <main className="flex-1"><Outlet /></main>
+      <main className="flex-1"><PageTransition /></main>
       <Footer />
       <AdSpot />
       <Onboarding />
@@ -91,6 +105,7 @@ export default function App() {
             <Route path="/programs" element={<Programs />} />
             <Route path="/results" element={<Results />} />
             <Route path="/about" element={<About />} />
+            <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/issues" element={<Magazine />} />
             <Route path="/issues/:id" element={<Magazine />} />
