@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Palette: #222831 · #393E46 · #FFD369 · #EEEEEE */
+@layer base {
+  :root {
+    /* Auto-restored theme variables */
+    --shadow-x: 0px;
+    --shadow-y: 1px;
+    --shadow-blur: 4px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.2;
+    --shadow-color: #000000;
+    --shadow-2xs: var(--shadow-x) var(--shadow-y) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-2xl: calc(var(--shadow-x) * 8) calc(var(--shadow-y) * 8) calc(max(0px, var(--shadow-blur) * 9 - 8px)) calc(var(--shadow-spread) - 12px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 250%), transparent);
+
+    --background: 0 0% 93%;
+    --foreground: 216 18% 16%;
+    --muted: 216 10% 87%;
+    --muted-foreground: 216 10% 34%;
+    --popover: 0 0% 97%;
+    --popover-foreground: 216 18% 16%;
+    --border: 216 10% 80%;
+    --input: 216 10% 78%;
+    --card: 0 0% 98%;
+    --card-foreground: 216 18% 16%;
+    --primary: 216 18% 16%;
+    --primary-foreground: 0 0% 93%;
+    --secondary: 216 10% 25%;
+    --secondary-foreground: 0 0% 93%;
+    --accent: 43 100% 71%;
+    --accent-foreground: 216 18% 16%;
+    --gold: 43 100% 71%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --ring: 43 100% 60%;
+    --radius: 0.9rem;
+    --sidebar-background: 0 0% 96%;
+    --sidebar-foreground: 216 18% 16%;
+    --sidebar-primary: 216 18% 16%;
+    --sidebar-primary-foreground: 0 0% 93%;
+    --sidebar-accent: 216 10% 88%;
+    --sidebar-accent-foreground: 216 18% 16%;
+    --sidebar-border: 216 10% 82%;
+    --sidebar-ring: 43 100% 60%;
+    --chart-1: 43 100% 61%;
+    --chart-2: 216 18% 16%;
+    --chart-3: 216 10% 40%;
+    --chart-4: 43 70% 45%;
+    --chart-5: 0 0% 60%;
+    --font-sans: 'Manrope', 'Helvetica Neue', sans-serif;
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --shadow-sm: 0 1px 2px rgb(34 40 49 / 0.06);
+    --shadow: 0 4px 14px rgb(34 40 49 / 0.08);
+    --shadow-md: 0 8px 24px rgb(34 40 49 / 0.10);
+    --shadow-lg: 0 18px 48px rgb(34 40 49 / 0.14);
+    --shadow-xl: 0 28px 70px rgb(34 40 49 / 0.18);
+    --glass-bg: 0 0% 100%;
+    --glass-alpha: 0.55;
+  }
+
+  .dark {
+    --background: 216 18% 12%;
+    --foreground: 0 0% 93%;
+    --muted: 216 10% 22%;
+    --muted-foreground: 0 0% 68%;
+    --popover: 216 18% 16%;
+    --popover-foreground: 0 0% 93%;
+    --border: 216 10% 28%;
+    --input: 216 10% 30%;
+    --card: 216 18% 16%;
+    --card-foreground: 0 0% 93%;
+    --primary: 43 100% 71%;
+    --primary-foreground: 216 18% 16%;
+    --secondary: 216 10% 25%;
+    --secondary-foreground: 0 0% 93%;
+    --accent: 43 100% 71%;
+    --accent-foreground: 216 18% 16%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --ring: 43 100% 71%;
+    --sidebar-background: 216 18% 14%;
+    --sidebar-foreground: 0 0% 93%;
+    --sidebar-primary: 43 100% 71%;
+    --sidebar-primary-foreground: 216 18% 16%;
+    --sidebar-accent: 216 10% 25%;
+    --sidebar-accent-foreground: 0 0% 93%;
+    --sidebar-border: 216 10% 25%;
+    --sidebar-ring: 43 100% 71%;
+    --glass-bg: 216 18% 16%;
+    --glass-alpha: 0.55;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  /* Liquid glass — anything behind it is blurred */
+  .glass {
+    background: hsl(var(--glass-bg) / var(--glass-alpha));
+    backdrop-filter: blur(22px) saturate(170%);
+    -webkit-backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid hsl(var(--foreground) / 0.09);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.25), var(--shadow-md);
+  }
+  .glass-strong {
+    background: hsl(var(--glass-bg) / 0.78);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid hsl(var(--foreground) / 0.1);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.2), var(--shadow-lg);
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+  .kicker {
+    @apply text-[11px] font-bold uppercase tracking-[0.18em];
+  }
+  .logo-img {
+    mix-blend-mode: multiply;
+  }
+  .dark .logo-img {
+    mix-blend-mode: normal;
+  }
+}
+
+.dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 4.6rem;
+  line-height: 0.8;
+  margin: 0.35rem 0.6rem 0 0;
+  color: hsl(var(--foreground));
+  border-bottom: 4px solid hsl(var(--gold));
+}

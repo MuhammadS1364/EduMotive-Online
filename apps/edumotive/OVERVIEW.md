@@ -1,0 +1,3 @@
+# EduMotive
+
+Public website of the EduMotive student magazine. Readers browse articles (organised into sections such as DigiZone, BizBuzz, Blueprint, LitVilla, UniVerse, SoulSteps, PixelPlay), read magazine issues in a flipbook, explore authors, programs, results and the team, and subscribe for the printed magazine (₹500/year, ₹300/half-year) by paying via QR and uploading proof. Students and authors sign in, create a profile (class + institution), write and submit articles for editorial review, track their subscription parcel, and letters to authors/public can be sent on every article. Businesses can submit ads for approval. Managed from the EduMotive Admin app; sister social app is UniMedia.

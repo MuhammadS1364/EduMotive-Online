@@ -1,0 +1,12 @@
+{
+  "id": "qywxvegacl",
+  "accessMode": "external",
+  "authentication": {
+    "signup": "open",
+    "authenticationMethods": {
+      "magicLink": true,
+      "googleSignIn": true,
+      "sso": false
+    }
+  }
+}

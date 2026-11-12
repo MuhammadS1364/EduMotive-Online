@@ -1,0 +1,16 @@
+{
+  "project": {
+    "name": "Vision Mission",
+    "basePublicIdentifier": "bfa044136d9f5498"
+  },
+  "integrations": {
+    "github": {
+      "type": "github",
+      "connectionId": "svc_581552"
+    },
+    "github-2": {
+      "type": "github",
+      "connectionId": "svc_581554"
+    }
+  }
+}
