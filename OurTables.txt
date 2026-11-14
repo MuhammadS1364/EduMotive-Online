@@ -1,0 +1,334 @@
+
+
+========================DataBase Connection===================
+
+
+TURSO_DATABASE_AUTH_TOKEN = eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3OTQ2NjU4MTksImlkIjoiMDFhMWM2MmUtOGEwMS03MWFmLTkwYjUtYWE5ZWRhY2Q5ZGZkIiwia2lkIjoiOU9MNjgwUE1WUjQ5NnNhZ0JWRzFja0p2WEVna2xzUm41dkQ1bWxXNm4tRSIsInJpZCI6IjRjY2IwMGNlLWI1YjQtNDg5MS05MjQ3LTgwMWIzZTRiZDg1YyJ9.X09NLcmlT8mtOqAwt5-HF0vAQurz7KB98h04KF7uamGEcXF2wvkYRgLoBitrELOJjMil56E_gtLwanW5wgLECQ
+
+TURSO_DATABASE_URL = libsql://edumotive-trimonthly-msdurso.aws-ap-south-1.turso.io
+
+
+
+
+
+
+================TeamMembers=============
+
+CREATE TABLE `TeamMembers` (
+	`id` text PRIMARY KEY,
+	`name` text,
+	`designation` text,
+	`photo` text,
+	`phone` text,
+	`address` text,
+	`email` text,
+	`instagram` text,
+	`linkedin` text,
+	`twitter` text,
+	`sortOrder` real,
+	`bio` text,
+	`facebook` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+=======================Subscriptions=====================
+
+CREATE TABLE `Subscriptions` (
+	`id` text PRIMARY KEY,
+	`name` text,
+	`email` text,
+	`phone` text,
+	`address` text,
+	`plan` text,
+	`amount` real,
+	`transactionId` text,
+	`paymentScreenshot` text,
+	`status` text,
+	`planName` text,
+	`trackingNumber` text,
+	`deliveryStatus` text,
+	`subscriber` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+===========================SubscriptionPlans========================
+
+CREATE TABLE `SubscriptionPlans` (
+	`id` text PRIMARY KEY,
+	`name` text,
+	`price` real,
+	`duration` text,
+	`features` text,
+	`visible` integer,
+	`sortOrder` real,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+============================Stories=========================
+
+CREATE TABLE `Stories` (
+	`id` text PRIMARY KEY,
+	`caption` text,
+	`media` text,
+	`mediaType` text,
+	`author` text,
+	`authorName` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+=========================SiteSettings======================
+
+CREATE TABLE `SiteSettings` (
+	`id` text PRIMARY KEY,
+	`key` text,
+	`value` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+=======================Sections====================
+
+CREATE TABLE `Sections` (
+	`id` text PRIMARY KEY,
+	`name` text,
+	`description` text,
+	`visible` integer,
+	`sortOrder` real,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+================Results=======================
+
+CREATE TABLE `Results` (
+	`id` text PRIMARY KEY,
+	`participant` text,
+	`programName` text,
+	`position` text,
+	`institution` text,
+	`visible` integer,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+=====================Programs==================
+
+CREATE TABLE `Programs` (
+	`id` text PRIMARY KEY,
+	`title` text,
+	`image` text,
+	`fee` real,
+	`description` text,
+	`eligibility` text,
+	`mode` text,
+	`registrationLink` text,
+	`eventDate` text,
+	`visible` integer,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+================================Profiles========================
+
+CREATE TABLE `Profiles` (
+	`id` text PRIMARY KEY,
+	`name` text,
+	`user` text,
+	`role` text,
+	`class` text,
+	`institution` text,
+	`bio` text,
+	`avatar` text,
+	`badges` text,
+	`designation` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+=============================Posts==========================
+
+CREATE TABLE `Posts` (
+	`id` text PRIMARY KEY,
+	`caption` text,
+	`image` text,
+	`author` text,
+	`authorName` text,
+	`institution` text,
+	`likedBy` text,
+	`hidden` integer,
+	`mediaType` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+
+================Notes====================
+
+CREATE TABLE `Notes` (
+	`id` text PRIMARY KEY,
+	`title` text,
+	`content` text,
+	`color` text,
+	`pinned` integer,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+
+===============================News============================
+CREATE TABLE `News` (
+	`id` text PRIMARY KEY,
+	`title` text,
+	`summary` text,
+	`body` text,
+	`media` text,
+	`category` text,
+	`publishedAt` text,
+	`pinned` integer,
+	`visible` integer,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+
+
+
+=================================Issues======================
+CREATE TABLE `Issues` (
+	`id` text PRIMARY KEY,
+	`title` text,
+	`description` text,
+	`coverImage` text,
+	`pdfUrl` text,
+	`issueDate` text,
+	`visible` integer,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+==================================HeroSlides================================
+CREATE TABLE `HeroSlides` (
+	`id` text PRIMARY KEY,
+	`image` text,
+	`link` text,
+	`sortOrder` real,
+	`visible` integer,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+======================ContentPlans=========================
+
+CREATE TABLE `ContentPlans` (
+	`id` text PRIMARY KEY,
+	`title` text,
+	`description` text,
+	`status` text,
+	`dueDate` text,
+	`assignee` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+
+=======================Comments=================
+
+CREATE TABLE `Comments` (
+	`id` text PRIMARY KEY,
+	`text` text,
+	`post` text,
+	`authorName` text,
+	`author` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+
+=====================================Badges=======================
+
+CREATE TABLE `Badges` (
+	`id` text PRIMARY KEY,
+	`name` text,
+	`description` text,
+	`emoji` text,
+	`rule` text,
+	`icon` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
+
+
+
+
+================================AuthUsers==========================
+
+CREATE TABLE `AuthUsers` (
+	`id` text PRIMARY KEY,
+	`email` text NOT NULL UNIQUE,
+	`name` text,
+	`firstName` text,
+	`lastName` text,
+	`image` text,
+	`passwordHash` text,
+	`googleId` text,
+	`verified` integer DEFAULT 0,
+	`created` text NOT NULL
+);
+
+
+=============================AuthSessions========================
+
+CREATE TABLE `AuthSessions` (
+	`tokenHash` text PRIMARY KEY,
+	`userId` text NOT NULL,
+	`expires` integer NOT NULL
+);
+
+
+
+=================AuthCodes==================
+
+CREATE TABLE `AuthCodes` (
+	`email` text NOT NULL,
+	`purpose` text NOT NULL,
+	`codeHash` text NOT NULL,
+	`expires` integer NOT NULL,
+	`attempts` integer DEFAULT 0,
+	`sentAt` integer NOT NULL,
+	CONSTRAINT `AuthCodes_pk` PRIMARY KEY(`email`, `purpose`)
+);
+
+
+
+=========================Articles========================
+CREATE TABLE `Articles` (
+	`id` text PRIMARY KEY,
+	`title` text,
+	`excerpt` text,
+	`content` text,
+	`coverImage` text,
+	`section` text,
+	`authorName` text,
+	`author` text,
+	`status` text,
+	`featured` integer,
+	`publishedAt` text,
+	`authorProfile` text,
+	`issue` text,
+	`created` text NOT NULL,
+	`updated` text NOT NULL
+);
