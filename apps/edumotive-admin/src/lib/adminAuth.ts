@@ -4,7 +4,7 @@ import { ZiteError } from 'zitejs/backend';
 const ADMIN_CODE = 'edumotive4admin';
 
 export function assertAdmin(key: string | undefined) {
-  if (key?.trim() !== ADMIN_CODE) {
+  if (key !== ADMIN_CODE) {
     throw new ZiteError({ code: 'UNAUTHORIZED', message: 'Invalid admin code', userFacingMessage: 'Please enter the admin code again.' });
   }
 }

@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, FileText, Layers, Users, Award, BookOpen, GraduationCap, Trophy, UserSquare2,
-  CreditCard, Package, Megaphone, Mail, StickyNote, Settings, UserCircle, GalleryHorizontal, Newspaper, Building2,
+  CreditCard, Package, Megaphone, Mail, StickyNote, Settings, UserCircle, GalleryHorizontal, Newspaper, Landmark,
 } from 'lucide-react';
 import type { AdminListInputType } from 'zitejs/api';
 
@@ -22,11 +22,10 @@ export const RESOURCES: Resource[] = [
       { key: 'link', label: 'Button link (e.g. /magazine or https://…)', type: 'text' },
       { key: 'sortOrder', label: 'Order', type: 'number', list: true }, { key: 'active', label: 'Active', type: 'bool', list: true },
     ] },
-  { path: 'initiatives', title: 'Initiative Of', icon: Building2, table: 'initiatives', titleKey: 'name', description: 'Organisations EduMotive is an initiative of (e.g. Anjuman-e-Huda) — shown with their logo on About Us.', defaults: { sortOrder: 1 },
+  { path: 'initiatives', title: 'Initiative Of', icon: Landmark, table: 'initiatives', titleKey: 'name', description: 'Organisations EduMotive is an initiative of (e.g. Anjuman-e-Huda). Shown with their logos on About Us.', defaults: { sortOrder: 1 },
     fields: [
       { key: 'logo', label: 'Logo', type: 'image', list: true }, { key: 'name', label: 'Name', type: 'text', list: true, required: true },
-      { key: 'description', label: 'Short description', type: 'textarea' }, { key: 'link', label: 'Website link', type: 'text' },
-      { key: 'sortOrder', label: 'Order', type: 'number', list: true },
+      { key: 'link', label: 'Website (optional)', type: 'text' }, { key: 'sortOrder', label: 'Order', type: 'number', list: true },
     ] },
   { path: 'news', title: 'News', icon: Newspaper, table: 'news', titleKey: 'title', description: 'News & updates shown on the News page and home page.', defaults: { published: true },
     fields: [

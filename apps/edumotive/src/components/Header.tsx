@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth, loginWithRedirect } from 'zitejs/auth';
-import { UserRound, PenLine, Search } from 'lucide-react';
-import { Button } from '@project/components/ui/button';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import { cn } from '@project/components/lib/utils';
 import Logo from './Logo';
 import { useData } from '../lib/data';
@@ -38,8 +36,7 @@ function SearchBox({ className }: { className?: string }) {
 
 export default function Header() {
   const items = useNavItems();
-  const { user } = useAuth();
-  const { me, site } = useData();
+  const { site } = useData();
   const loc = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [loc.pathname]);
   const today = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).replace(/ (\d{4})$/, ', $1');
@@ -57,16 +54,6 @@ export default function Header() {
         <div className="container mx-auto px-4 py-3 flex items-center gap-3">
           <Logo />
           <SearchBox className="ml-auto hidden md:flex w-64" />
-          <div className="ml-auto md:ml-0 flex items-center gap-2">
-            {user && <Button asChild size="sm" variant="ghost" className="hidden sm:inline-flex rounded-full"><Link to="/write"><PenLine className="h-4 w-4 mr-1" />Write</Link></Button>}
-            {user ? (
-              <Link to="/profile" className="h-9 w-9 rounded-full overflow-hidden border-2 border-accent grid place-items-center bg-muted">
-                {me?.profile?.avatar ? <img src={me.profile.avatar} className="h-full w-full object-cover" alt="" /> : <UserRound className="h-4 w-4" />}
-              </Link>
-            ) : (
-              <Button size="sm" className="h-8 px-3 text-xs rounded-full font-semibold" onClick={() => loginWithRedirect()}>Sign in</Button>
-            )}
-          </div>
         </div>
         <nav className="border-t border-border/60">
           <div className="container mx-auto px-2 flex items-center gap-1 overflow-x-auto no-scrollbar snap-x lg:justify-center">

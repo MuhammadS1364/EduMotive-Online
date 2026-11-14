@@ -14,8 +14,8 @@ export default createEndpoint({
       contactEmail: s, instagram: s, facebook: s, xLink: s, freePdfPages: z.number(), googleVerificationCode: s,
       phone: s, phones: z.array(s), address: s, motto: s,
     }),
+    initiatives: z.array(z.object({ id: s, name: s, logo: s, link: s })),
     heroSlides: z.array(z.object({ id: s, title: s, subtitle: s, image: s, buttonText: s, link: s })),
-    initiatives: z.array(z.object({ id: s, name: s, logo: s, description: s, link: s })),
     sections: z.array(z.object({ id: s, name: s, description: s })),
     plans: z.array(z.object({ id: s, name: s, price: z.number(), durationMonths: z.number(), features: z.array(s), premiumArticles: z.boolean(), pdfReading: z.boolean(), hardCopy: z.boolean() })),
     adPlans: z.array(z.object({ id: s, name: s, mediaType: s, period: s, price: z.number(), details: s })),
@@ -43,11 +43,9 @@ export default createEndpoint({
     const periodOrder: Record<string, number> = { Week: 0, Month: 1, Year: 2 };
     return {
       settings,
+      initiatives: ini.records.filter((r) => r.name || r.logo).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)).map((r) => ({ id: r.id, name: r.name ?? '', logo: r.logo ?? '', link: r.link ?? '' })),
       heroSlides: hs.records.filter((h) => h.active && h.image).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)).map((h) => ({
         id: h.id, title: h.title ?? '', subtitle: h.subtitle ?? '', image: h.image ?? '', buttonText: h.buttonText ?? '', link: h.link ?? '',
-      })),
-      initiatives: ini.records.filter((r) => r.name).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)).map((r) => ({
-        id: r.id, name: r.name ?? '', logo: r.logo ?? '', description: r.description ?? '', link: r.link ?? '',
       })),
       sections: sec.records.filter((r) => r.visible).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
         .map((r) => ({ id: r.id, name: r.name ?? '', description: r.description ?? '' })),

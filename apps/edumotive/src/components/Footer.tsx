@@ -21,7 +21,7 @@ export default function Footer() {
   ];
   const links = [
     { to: '/about', l: 'About us' }, { to: '/articles', l: 'Articles' }, { to: '/authors', l: 'Authors' },
-    { to: '/magazine', l: 'Magazine' }, { to: '/contact', l: 'Join us' }, { to: '/write', l: 'Submit work' },
+    { to: '/magazine', l: 'Magazine' }, { to: '/contact', l: 'Join us' },
     { to: '/advertise', l: 'Advertise' },
   ];
   return (

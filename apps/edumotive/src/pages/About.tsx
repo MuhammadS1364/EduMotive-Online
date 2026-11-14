@@ -49,14 +49,13 @@ export default function About() {
           </div>
         ))}
       </section>
-      {site.initiatives.length > 0 && (
-        <section className="text-center space-y-6">
-          <p className="kicker text-muted-foreground">An initiative of</p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {site.initiatives.map((o) => {
-              const inner = <>{o.logo && <img src={o.logo} alt={o.name} className="h-20 w-20 mx-auto object-contain" />}<p className="font-bold mt-3">{o.name}</p>{o.description && <p className="text-sm text-muted-foreground mt-1">{o.description}</p>}</>;
-              const cls = "glass glass-hover rounded-3xl p-6 w-60 hover:-translate-y-1 transition-transform";
-              return o.link ? <a key={o.id} href={o.link} target="_blank" rel="noreferrer" className={cls}>{inner}</a> : <div key={o.id} className={cls}>{inner}</div>;
+      {(site?.initiatives ?? []).length > 0 && (
+        <section className="glass rounded-[2rem] p-6 md:p-10 text-center space-y-6">
+          <div><p className="kicker text-muted-foreground">An initiative of</p><h2 className="text-2xl md:text-3xl font-black mt-1">EduMotive is an initiative of</h2></div>
+          <div className="flex flex-wrap justify-center gap-8">
+            {(site?.initiatives ?? []).map((o) => {
+              const inner = <>{o.logo && <img src={o.logo} alt={o.name} className="h-20 w-auto max-w-[180px] mx-auto object-contain transition-transform duration-300 hover:scale-105" />}<p className="font-semibold mt-3">{o.name}</p></>;
+              return o.link ? <a key={o.id} href={o.link} target="_blank" rel="noreferrer" className="w-44">{inner}</a> : <div key={o.id} className="w-44">{inner}</div>;
             })}
           </div>
         </section>
