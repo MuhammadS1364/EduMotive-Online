@@ -49,6 +49,18 @@ export default function About() {
           </div>
         ))}
       </section>
+      {site.initiatives.length > 0 && (
+        <section className="text-center space-y-6">
+          <p className="kicker text-muted-foreground">An initiative of</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {site.initiatives.map((o) => {
+              const inner = <>{o.logo && <img src={o.logo} alt={o.name} className="h-20 w-20 mx-auto object-contain" />}<p className="font-bold mt-3">{o.name}</p>{o.description && <p className="text-sm text-muted-foreground mt-1">{o.description}</p>}</>;
+              const cls = "glass glass-hover rounded-3xl p-6 w-60 hover:-translate-y-1 transition-transform";
+              return o.link ? <a key={o.id} href={o.link} target="_blank" rel="noreferrer" className={cls}>{inner}</a> : <div key={o.id} className={cls}>{inner}</div>;
+            })}
+          </div>
+        </section>
+      )}
       {s.teamPhoto && <figure><img src={s.teamPhoto} alt="EduMotive team" className="w-full rounded-[2rem] shadow-2xl object-cover max-h-[560px]" /><figcaption className="text-center text-sm text-muted-foreground mt-3">Team EduMotive</figcaption></figure>}
       {site.team.length > 0 && (
         <section>

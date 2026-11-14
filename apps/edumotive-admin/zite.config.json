@@ -8,5 +8,10 @@
       "googleSignIn": true,
       "sso": false
     }
+  },
+  "envVars": {
+    "ZITE_ADMIN_CODE": {
+      "description": "The single access code that opens the EduMotive Admin panel"
+    }
   }
 }

@@ -61,7 +61,7 @@ export default function News() {
       </Reveal>
       {!news ? <div className="grid gap-6 md:grid-cols-3"><Skeleton className="h-72 md:col-span-2 rounded-2xl" /><Skeleton className="h-72 rounded-2xl" /></div>
         : list.length === 0 ? <p className="py-16 text-center text-muted-foreground">No updates found.</p>
-        : <div className="grid gap-6 md:grid-cols-3">{list.map((n, i) => <NewsCard key={n.id} n={n} i={i} big={i === 0 && !q} onOpen={() => setOpen(n)} />)}</div>}
+        : <div className="grid gap-6 md:grid-cols-3">{list.map((n, i) => <NewsCard key={n.id} n={n} i={i} onOpen={() => setOpen(n)} />)}</div>}
       <NewsDialog n={open} onClose={() => setOpen(null)} />
     </div>
   );

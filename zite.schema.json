@@ -2449,6 +2449,62 @@
           }
         }
       ]
+    },
+    {
+      "id": "t2SN9RCknbE",
+      "sdkName": "initiatives",
+      "name": "Initiatives",
+      "primaryFieldId": "fxbpuYJQphF",
+      "fields": [
+        {
+          "id": "fxbpuYJQphF",
+          "sdkName": "name",
+          "definition": {
+            "name": "Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fweMWhLChov",
+          "sdkName": "logo",
+          "definition": {
+            "name": "Logo",
+            "type": "url",
+            "template": {}
+          }
+        },
+        {
+          "id": "fuN4J2PxX9B",
+          "sdkName": "description",
+          "definition": {
+            "name": "Description",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f8Ckk4yk2Bt",
+          "sdkName": "link",
+          "definition": {
+            "name": "Link",
+            "type": "url",
+            "template": {}
+          }
+        },
+        {
+          "id": "fcpdmsg9qFE",
+          "sdkName": "sortOrder",
+          "definition": {
+            "name": "Sort Order",
+            "type": "number",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 1
+            }
+          }
+        }
+      ]
     }
   ]
 }

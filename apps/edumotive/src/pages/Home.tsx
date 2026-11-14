@@ -45,9 +45,6 @@ export default function Home() {
         <div className="glass glass-hover rounded-3xl p-12 text-center"><h2 className="text-3xl font-bold">Stories are on their way</h2><p className="text-muted-foreground mt-2">The first articles will appear here once published.</p></div>
       )}
 
-      <section className="flex gap-2 overflow-x-auto no-scrollbar md:flex-wrap md:justify-center">
-        {sections.map((s) => <Link key={s.id} to={`/articles?section=${encodeURIComponent(s.name)}`} className="shrink-0 glass rounded-full px-5 py-2 font-semibold text-sm hover:bg-accent hover:text-accent-foreground transition-colors">{s.name}</Link>)}
-      </section>
 
       {rest.length > 4 && (
         <section><SectionHead title="Top Stories" to="/articles" />

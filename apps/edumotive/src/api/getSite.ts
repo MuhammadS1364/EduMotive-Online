@@ -15,6 +15,7 @@ export default createEndpoint({
       phone: s, phones: z.array(s), address: s, motto: s,
     }),
     heroSlides: z.array(z.object({ id: s, title: s, subtitle: s, image: s, buttonText: s, link: s })),
+    initiatives: z.array(z.object({ id: s, name: s, logo: s, description: s, link: s })),
     sections: z.array(z.object({ id: s, name: s, description: s })),
     plans: z.array(z.object({ id: s, name: s, price: z.number(), durationMonths: z.number(), features: z.array(s), premiumArticles: z.boolean(), pdfReading: z.boolean(), hardCopy: z.boolean() })),
     adPlans: z.array(z.object({ id: s, name: s, mediaType: s, period: s, price: z.number(), details: s })),
@@ -23,10 +24,10 @@ export default createEndpoint({
     results: z.array(z.object({ id: s, studentName: s, program: s, event: s, position: s, grade: s, institution: s, photo: s })),
   }),
   execute: async () => {
-    const [st, sec, pl, tm, pr, rs, ap, hs] = await Promise.all([
+    const [st, sec, pl, tm, pr, rs, ap, hs, ini] = await Promise.all([
       zite.siteSettings.findAll({ limit: 1 }), zite.sections.findAll({ limit: 200 }), zite.plans.findAll({ limit: 100 }),
       zite.teamMembers.findAll({ limit: 500 }), zite.programs.findAll({ limit: 500 }), zite.results.findAll({ limit: 2000 }),
-      zite.adPlans.findAll({ limit: 200 }), zite.heroSlides.findAll({ limit: 50 }),
+      zite.adPlans.findAll({ limit: 200 }), zite.heroSlides.findAll({ limit: 50 }), zite.initiatives.findAll({ limit: 50 }),
     ]);
     const x = st.records[0] ?? ({} as Record<string, never>);
     const settings = {
@@ -44,6 +45,9 @@ export default createEndpoint({
       settings,
       heroSlides: hs.records.filter((h) => h.active && h.image).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)).map((h) => ({
         id: h.id, title: h.title ?? '', subtitle: h.subtitle ?? '', image: h.image ?? '', buttonText: h.buttonText ?? '', link: h.link ?? '',
+      })),
+      initiatives: ini.records.filter((r) => r.name).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)).map((r) => ({
+        id: r.id, name: r.name ?? '', logo: r.logo ?? '', description: r.description ?? '', link: r.link ?? '',
       })),
       sections: sec.records.filter((r) => r.visible).sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
         .map((r) => ({ id: r.id, name: r.name ?? '', description: r.description ?? '' })),

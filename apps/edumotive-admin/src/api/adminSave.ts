@@ -3,7 +3,7 @@ import { createEndpoint } from 'zitejs/backend';
 import { assertAdmin } from '../lib/adminAuth';
 import { zite } from 'zitejs/db';
 
-const TABLES = ['siteSettings', 'sections', 'tiers', 'badges', 'authors', 'issues', 'articles', 'letters', 'programs', 'results', 'teamMembers', 'plans', 'subscriptions', 'ads', 'notes', 'profiles', 'adPlans', 'heroSlides', 'news'] as const;
+const TABLES = ['siteSettings', 'sections', 'tiers', 'badges', 'authors', 'issues', 'articles', 'letters', 'programs', 'results', 'teamMembers', 'plans', 'subscriptions', 'ads', 'notes', 'profiles', 'adPlans', 'heroSlides', 'news', 'initiatives'] as const;
 const one = (v: unknown) => (Array.isArray(v) ? v[0] : v) as string | undefined;
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 80);
 
