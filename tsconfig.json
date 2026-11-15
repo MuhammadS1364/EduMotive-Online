@@ -3,6 +3,9 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "zitejs/db": ["./apps/edumotive/src/zite-compat/db.ts"],
@@ -13,10 +16,23 @@
     "noEmit": true
   },
   "include": [
-    "apps/edumotive/src",
-    "api"
+    "api",
+    "apps/edumotive/api",
+    "apps/edumotive-admin/api",
+    "apps/edumotive/apiApp.ts",
+    "apps/edumotive/src/api",
+    "apps/edumotive/src/lib/server.ts",
+    "apps/edumotive/src/lib/schemas.ts",
+    "apps/edumotive/src/zite-compat/backend.ts",
+    "apps/edumotive/src/zite-compat/db.ts",
+    "apps/edumotive/src/zite-compat/seed.ts",
+    "apps/edumotive/src/zite-compat/turso.ts",
+    "apps/edumotive/src/zite-compat/types.ts",
+    "apps/edumotive-admin/src/api",
+    "apps/edumotive-admin/src/lib/adminAuth.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/dist"
   ]
 }

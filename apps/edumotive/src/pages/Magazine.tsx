@@ -11,9 +11,22 @@ const COVER = 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600';
 
 export default function Magazine() {
   const { id } = useParams();
-  const { catalog, site, me } = useData();
+  const { catalog, site, me, error, reload } = useData();
   const readerRef = useRef<HTMLDivElement>(null);
-  if (!catalog || !site) return <div className="container mx-auto px-4 py-10"><Skeleton className="h-[500px] rounded-3xl" /></div>;
+  if (!catalog || !site) {
+    if (error) {
+      return (
+        <div className="container mx-auto px-4 py-16 max-w-xl text-center">
+          <div className="glass rounded-3xl p-8 space-y-4">
+            <h2 className="text-2xl font-bold">Could not load magazine content</h2>
+            <p className="text-sm text-muted-foreground">{error}</p>
+            <Button onClick={reload}>Try again</Button>
+          </div>
+        </div>
+      );
+    }
+    return <div className="container mx-auto px-4 py-10"><Skeleton className="h-[500px] rounded-3xl" /></div>;
+  }
   const issues = catalog.issues;
   if (!issues.length) return <div className="container mx-auto px-4 py-24 text-center"><h1 className="text-4xl font-black">Magazine</h1><p className="text-muted-foreground mt-3">No issues published yet.</p></div>;
   const idx = Math.max(0, id ? issues.findIndex((i) => i.id === id) : 0);

@@ -36,9 +36,22 @@ async function call<TIn, TOut>(name: string, input: TIn): Promise<TOut> {
     },
     body: JSON.stringify(input ?? {}),
   });
-  const data = await res.json().catch(() => ({}));
+  const text = await res.text();
+  let data: Record<string, unknown> = {};
+  if (text) {
+    try {
+      data = JSON.parse(text) as Record<string, unknown>;
+    } catch {
+      const ct = res.headers.get('content-type') || 'unknown';
+      throw new Error(`API /api/${name} returned invalid response (${res.status}, ${ct})`);
+    }
+  }
   if (!res.ok) {
-    throw new Error(data?.error || data?.message || `Request failed (${res.status})`);
+    const errMsg =
+      (typeof data?.error === 'string' && data.error) ||
+      (typeof data?.message === 'string' && data.message) ||
+      `Request failed (${res.status})`;
+    throw new Error(errMsg);
   }
   return data as TOut;
 }

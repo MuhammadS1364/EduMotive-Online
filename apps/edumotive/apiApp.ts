@@ -178,8 +178,14 @@ export function createApiApp(): express.Express {
   app.use(express.json({ limit: '15mb' }));
 
   app.get('/api/health', async (_req, res) => {
-    await ensureDbReady();
-    res.json({ ok: true, database: isTursoEnabled() ? 'turso' : 'memory' });
+    try {
+      await ensureDbReady();
+      return res.json({ ok: true, database: isTursoEnabled() ? 'turso' : 'memory' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Database connection error';
+      console.error('Health check database error:', err);
+      return res.status(500).json({ ok: false, database: isTursoEnabled() ? 'turso' : 'memory', error: msg });
+    }
   });
 
   app.get('/api/issues/:id.pdf', async (req, res) => {
@@ -255,7 +261,8 @@ export function createApiApp(): express.Express {
         return res.status(400).json({ error: err.errors.map((e) => e.message).join(', ') });
       }
       console.error(`Endpoint error (${name}):`, err);
-      return res.status(500).json({ error: 'Internal server error' });
+      const detail = err instanceof Error ? err.message : 'Internal server error';
+      return res.status(500).json({ error: detail });
     }
   });
 
@@ -265,7 +272,6 @@ export function createApiApp(): express.Express {
 let cachedApp: express.Express | null = null;
 
 export async function getApiApp(): Promise<express.Express> {
-  await ensureDbReady();
   if (!cachedApp) {
     cachedApp = createApiApp();
   }
