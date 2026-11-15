@@ -23,7 +23,7 @@ export function useUpload() {
       });
       if (res.ok) {
         const json = await res.json();
-        if (json?.url) return { url: new URL(json.url, window.location.origin).toString() };
+        if (json?.url) return { url: String(json.url) };
       }
       return { url: dataUrl };
     } finally {

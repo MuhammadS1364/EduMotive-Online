@@ -3,12 +3,18 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "zitejs/db": ["./apps/edumotive/src/zite-compat/db.ts"],
+      "zitejs/backend": ["./apps/edumotive/src/zite-compat/backend.ts"]
+    },
     "strict": false,
     "skipLibCheck": true,
     "noEmit": true
   },
   "include": [
-    "apps/edumotive/src"
+    "apps/edumotive/src",
+    "api"
   ],
   "exclude": [
     "node_modules"

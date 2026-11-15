@@ -44,7 +44,16 @@ export default function Footer() {
           <H>EduMotive</H>
           <ul className="grid grid-cols-2 gap-2 text-sm">
             {links.map((x) => <li key={x.to + x.l}><Link to={x.to} className="hover:text-accent">{x.l}</Link></li>)}
-            <li><a href="/admin/" className="hover:text-accent">Admin panel</a></li>
+            <li>
+              <a
+                href={import.meta.env.VITE_ADMIN_URL || '/admin/'}
+                target={import.meta.env.VITE_ADMIN_URL ? '_blank' : undefined}
+                rel={import.meta.env.VITE_ADMIN_URL ? 'noreferrer' : undefined}
+                className="hover:text-accent"
+              >
+                Admin panel
+              </a>
+            </li>
           </ul>
         </div>
         <div className="space-y-3 text-sm">

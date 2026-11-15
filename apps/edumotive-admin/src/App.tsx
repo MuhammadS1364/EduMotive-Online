@@ -65,7 +65,12 @@ function SideNav({ onPick, onLogout }: { onPick?: () => void; onLogout: () => vo
             <button key={v} onClick={() => { setTheme(v); setMode(v); }} className={cn('rounded-lg py-1.5 grid place-items-center', mode === v ? 'bg-accent text-accent-foreground' : 'hover:bg-foreground/5')} aria-label={v}><I className="h-4 w-4" /></button>
           ))}
         </div>
-        <a href="/" className="flex items-center justify-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold hover:bg-foreground/5 transition-colors">
+        <a
+          href={import.meta.env.VITE_PUBLIC_SITE_URL || '/'}
+          target={import.meta.env.VITE_PUBLIC_SITE_URL ? '_blank' : undefined}
+          rel={import.meta.env.VITE_PUBLIC_SITE_URL ? 'noreferrer' : undefined}
+          className="flex items-center justify-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold hover:bg-foreground/5 transition-colors"
+        >
           <ExternalLink className="h-3.5 w-3.5" />View website
         </a>
         <Button variant="outline" size="sm" className="w-full" onClick={onLogout}><LogOut className="h-4 w-4 mr-1" />Log out</Button>
@@ -96,8 +101,9 @@ export default function App() {
   const [ok, setOk] = useState(() => !!sessionStorage.getItem(SESSION_KEY));
   useEffect(() => { applyTheme(); return watchSystemTheme(); }, []);
   if (!ok) return <Login onOk={() => setOk(true)} />;
+  const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
   return (
-    <BrowserRouter basename="/admin">
+    <BrowserRouter basename={routerBasename}>
       <Routes>
         <Route element={<Shell onLogout={() => { sessionStorage.removeItem(SESSION_KEY); setOk(false); }} />}>
           <Route path="/" element={<Dashboard />} />

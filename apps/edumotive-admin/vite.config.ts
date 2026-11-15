@@ -21,7 +21,7 @@ const deps = new Set([
 ]);
 
 export default defineConfig(() => ({
-  base: '/admin/',
+  base: process.env.VITE_BASE_PATH || (process.env.VERCEL ? '/' : '/admin/'),
   build: { target: 'esnext', sourcemap: false, reportCompressedSize: false },
   server: {
     host: '0.0.0.0',
