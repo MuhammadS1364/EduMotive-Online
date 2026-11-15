@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { createEndpoint } from 'zitejs/backend';
+import { createEndpoint } from '../../../edumotive/src/zite-compat/backend';
 import { assertAdmin } from '../lib/adminAuth';
-import { zite } from 'zitejs/db';
+import { zite } from '../../../edumotive/src/zite-compat/db';
 
 const TABLES = ['siteSettings', 'sections', 'tiers', 'badges', 'authors', 'issues', 'articles', 'letters', 'programs', 'results', 'teamMembers', 'plans', 'subscriptions', 'ads', 'notes', 'profiles', 'adPlans', 'heroSlides', 'news', 'initiatives'] as const;
 const one = (v: unknown) => (Array.isArray(v) ? v[0] : v) as string | undefined;

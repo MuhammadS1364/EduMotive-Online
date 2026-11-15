@@ -20,10 +20,23 @@ function SectionHead({ title, to }: { title: string; to?: string }) {
 }
 
 export default function Home() {
-  const { catalog, site } = useData();
+  const { catalog, site, error, reload } = useData();
   const news = useNews();
   const [open, setOpen] = useState<NewsItem | null>(null);
-  if (!catalog) return <div className="container mx-auto px-4 py-10 grid gap-6 md:grid-cols-3"><Skeleton className="h-96 md:col-span-2 rounded-3xl" /><Skeleton className="h-96 rounded-3xl" /></div>;
+  if (!catalog) {
+    if (error) {
+      return (
+        <div className="container mx-auto px-4 py-16 max-w-xl text-center">
+          <div className="glass rounded-3xl p-8 space-y-4">
+            <h2 className="text-2xl font-bold">Could not load magazine content</h2>
+            <p className="text-sm text-muted-foreground">{error}</p>
+            <Button onClick={reload}>Try again</Button>
+          </div>
+        </div>
+      );
+    }
+    return <div className="container mx-auto px-4 py-10 grid gap-6 md:grid-cols-3"><Skeleton className="h-96 md:col-span-2 rounded-3xl" /><Skeleton className="h-96 rounded-3xl" /></div>;
+  }
   const arts = catalog.articles;
   const hero = arts.find((a) => a.featured) ?? arts[0];
   const rest = arts.filter((a) => a.id !== hero?.id);

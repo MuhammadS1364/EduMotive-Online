@@ -1,4 +1,4 @@
-import { ZiteError } from 'zitejs/backend';
+import { ZiteError } from '../../../edumotive/src/zite-compat/backend';
 
 // Server-only: admin accounts that can open the admin panel.
 const ADMIN_EMAILS = ['edumotive4@gmail.com', 'shafeealam1364@gmail.com'];

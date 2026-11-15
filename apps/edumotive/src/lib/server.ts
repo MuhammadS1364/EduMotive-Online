@@ -1,4 +1,4 @@
-import { zite } from 'zitejs/db';
+import { zite } from '../zite-compat/db';
 
 export const one = (v: unknown): string | undefined =>
   Array.isArray(v) ? (v[0] as string | undefined) : typeof v === 'string' && v ? v : undefined;
@@ -89,6 +89,6 @@ export function slugify(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 80);
 }
 
-import { ZiteError } from 'zitejs/backend';
+import { ZiteError } from '../zite-compat/backend';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fail = (msg: string) => new ZiteError({ code: 'BAD_REQUEST' as any, message: msg, userFacingMessage: msg });

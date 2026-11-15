@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createEndpoint } from 'zitejs/backend';
+import { createEndpoint } from '../../../edumotive/src/zite-compat/backend';
 import { assertAdmin } from '../lib/adminAuth';
 
 export default createEndpoint({

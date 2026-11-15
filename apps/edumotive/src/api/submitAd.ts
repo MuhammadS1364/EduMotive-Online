@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { createEndpoint } from 'zitejs/backend';
-import { zite } from 'zitejs/db';
+import { createEndpoint } from '../zite-compat/backend';
+import { zite } from '../zite-compat/db';
 
 export default createEndpoint({
   description: 'Submits a paid advertisement subscription for admin approval',

@@ -159,6 +159,22 @@ function parseUser(req: express.Request): AuthContextUser | null {
 
 export function createApiApp(): express.Express {
   const app = express();
+  app.use((req, _res, next) => {
+    const r = req as express.Request & { _body?: boolean; body?: unknown };
+    if (r.body !== undefined) {
+      if (typeof r.body === 'string') {
+        try {
+          r.body = r.body ? JSON.parse(r.body) : {};
+        } catch {
+          // Leave raw string for error handling
+        }
+      }
+      if (typeof r.body === 'object' && r.body !== null) {
+        r._body = true;
+      }
+    }
+    next();
+  });
   app.use(express.json({ limit: '15mb' }));
 
   app.get('/api/health', async (_req, res) => {
