@@ -8,7 +8,7 @@
     "noEmit": true
   },
   "include": [
-    ".zite"
+    "apps/edumotive/src"
   ],
   "exclude": [
     "node_modules"

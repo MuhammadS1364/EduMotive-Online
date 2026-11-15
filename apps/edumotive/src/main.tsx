@@ -5,6 +5,7 @@ import App from "./App";
 import { ErrorBoundary } from 'react-error-boundary';
 import { HammerIcon } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthModal } from 'zitejs/auth';
 
 const queryClient = new QueryClient();
 
@@ -27,7 +28,7 @@ function RuntimeErrorFallback(props: { error: Error }) {
         </h3>
         <p className="mb-4 text-sm text-gray-600">
           {allowAiFix
-            ? 'Try asking Zite to fix the issue or find a workaround.'
+            ? 'Try asking for a fix or find a workaround.'
             : 'Something went wrong while loading this app. You can try reloading the page.'}
         </p>
 
@@ -65,6 +66,7 @@ createRoot(document.getElementById('root')!).render(
     >
       <QueryClientProvider client={queryClient}>
         <App />
+        <AuthModal />
       </QueryClientProvider>
     </ErrorBoundary>
   </StrictMode>,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Outlet } from 'react-router-dom';
-import { Lock, LogOut, Menu, Sun, Moon, Monitor } from 'lucide-react';
+import { Lock, LogOut, Menu, Sun, Moon, Monitor, ExternalLink } from 'lucide-react';
 import { Toaster } from '@project/components/ui/sonner';
 import { Button } from '@project/components/ui/button';
 import { Input } from '@project/components/ui/input';
@@ -39,6 +39,9 @@ function Login({ onOk }: { onOk: () => void }) {
         <div className="space-y-1.5"><Label>Password</Label><Input type="password" value={code} onChange={(e) => { setCode(e.target.value); setErr(''); }} placeholder="Password" /></div>
         {err && <p className="text-sm text-destructive">{err}</p>}
         <Button type="submit" className="w-full" disabled={!email || !code || busy}>Sign in</Button>
+        <Button type="button" variant="outline" size="sm" className="w-full" onClick={() => { setEmail('edumotive4@gmail.com'); setCode('edu4motive@tri'); setErr(''); }}>
+          Use editorial admin account
+        </Button>
       </form>
     </div>
   );
@@ -62,6 +65,9 @@ function SideNav({ onPick, onLogout }: { onPick?: () => void; onLogout: () => vo
             <button key={v} onClick={() => { setTheme(v); setMode(v); }} className={cn('rounded-lg py-1.5 grid place-items-center', mode === v ? 'bg-accent text-accent-foreground' : 'hover:bg-foreground/5')} aria-label={v}><I className="h-4 w-4" /></button>
           ))}
         </div>
+        <a href="/" className="flex items-center justify-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold hover:bg-foreground/5 transition-colors">
+          <ExternalLink className="h-3.5 w-3.5" />View website
+        </a>
         <Button variant="outline" size="sm" className="w-full" onClick={onLogout}><LogOut className="h-4 w-4 mr-1" />Log out</Button>
       </div>
     </div>
@@ -91,7 +97,7 @@ export default function App() {
   useEffect(() => { applyTheme(); return watchSystemTheme(); }, []);
   if (!ok) return <Login onOk={() => setOk(true)} />;
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/admin">
       <Routes>
         <Route element={<Shell onLogout={() => { sessionStorage.removeItem(SESSION_KEY); setOk(false); }} />}>
           <Route path="/" element={<Dashboard />} />

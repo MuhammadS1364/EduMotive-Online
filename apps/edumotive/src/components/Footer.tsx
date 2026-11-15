@@ -44,6 +44,7 @@ export default function Footer() {
           <H>EduMotive</H>
           <ul className="grid grid-cols-2 gap-2 text-sm">
             {links.map((x) => <li key={x.to + x.l}><Link to={x.to} className="hover:text-accent">{x.l}</Link></li>)}
+            <li><a href="/admin/" className="hover:text-accent">Admin panel</a></li>
           </ul>
         </div>
         <div className="space-y-3 text-sm">

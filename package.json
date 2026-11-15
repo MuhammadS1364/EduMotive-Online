@@ -3,13 +3,16 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "automations/*",
     "packages/*"
   ],
   "scripts": {
-    "typecheck": "zitejs check"
+    "dev": "npm run dev --workspace=apps/edumotive",
+    "build": "npm run build --workspace=apps/edumotive && npm run build --workspace=apps/edumotive-admin",
+    "start": "npm run start --workspace=apps/edumotive",
+    "typecheck": "npm run typecheck --workspace=apps/edumotive && npm run typecheck --workspace=apps/edumotive-admin",
+    "lint": "npm run typecheck"
   },
   "dependencies": {
-    "zitejs": "0.10.2"
+    "@libsql/client": "^0.18.0"
   }
 }
