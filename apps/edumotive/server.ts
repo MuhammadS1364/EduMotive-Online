@@ -2,13 +2,17 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getApiApp } from './apiApp';
+import adminLogin from '../edumotive-admin/src/api/adminLogin';
+import adminList from '../edumotive-admin/src/api/adminList';
+import adminSave from '../edumotive-admin/src/api/adminSave';
+import adminStats from '../edumotive-admin/src/api/adminStats';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
 const isProd = process.env.NODE_ENV === 'production';
 
 async function start() {
-  const apiApp = await getApiApp();
+  const apiApp = await getApiApp({ adminLogin, adminList, adminSave, adminStats });
   const app = express();
   app.use(apiApp);
 

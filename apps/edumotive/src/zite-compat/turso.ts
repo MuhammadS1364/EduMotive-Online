@@ -1,4 +1,4 @@
-import { createClient, type Client, type InStatement, type InValue } from '@libsql/client';
+import { createClient, type Client, type InStatement, type InValue } from '@libsql/client/http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { INITIAL_SEED } from './seed';
@@ -256,10 +256,11 @@ let readyPromise: Promise<void> | null = null;
 export function getTursoClient(): Client {
   if (cachedClient) return cachedClient;
   loadDotEnvIfNeeded();
-  const url = process.env.TURSO_DATABASE_URL?.trim();
-  if (!url) {
+  const rawUrl = process.env.TURSO_DATABASE_URL?.trim();
+  if (!rawUrl) {
     throw new Error('TURSO_DATABASE_URL is not configured');
   }
+  const url = rawUrl.replace(/^libsql:\/\//i, 'https://');
   const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
   cachedClient = createClient({
     url,

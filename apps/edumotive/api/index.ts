@@ -17,7 +17,7 @@ export default async function handler(
         ? [rawPath]
         : [];
 
-    if (pathParts.length > 0 && (!req.url || req.url.startsWith('/api/index'))) {
+    if (pathParts.length > 0 && (!req.url || !req.url.startsWith(`/api/${pathParts.join('/')}`))) {
       const qs = new URLSearchParams();
       for (const [k, v] of Object.entries(req.query ?? {})) {
         if (k === '__path') continue;

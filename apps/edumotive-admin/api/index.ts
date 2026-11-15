@@ -1,5 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { getApiApp } from '../../edumotive/apiApp';
+import adminLogin from '../src/api/adminLogin';
+import adminList from '../src/api/adminList';
+import adminSave from '../src/api/adminSave';
+import adminStats from '../src/api/adminStats';
 
 export const config = {
   maxDuration: 30,
@@ -17,7 +21,7 @@ export default async function handler(
         ? [rawPath]
         : [];
 
-    if (pathParts.length > 0 && (!req.url || req.url.startsWith('/api/index'))) {
+    if (pathParts.length > 0 && (!req.url || !req.url.startsWith(`/api/${pathParts.join('/')}`))) {
       const qs = new URLSearchParams();
       for (const [k, v] of Object.entries(req.query ?? {})) {
         if (k === '__path') continue;
@@ -28,7 +32,7 @@ export default async function handler(
       req.url = `/api/${pathParts.join('/')}${suffix}`;
     }
 
-    const app = await getApiApp();
+    const app = await getApiApp({ adminLogin, adminList, adminSave, adminStats });
     await new Promise<void>((resolve) => {
       res.once('finish', resolve);
       res.once('close', resolve);

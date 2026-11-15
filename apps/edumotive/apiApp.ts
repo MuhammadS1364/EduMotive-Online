@@ -13,14 +13,13 @@ import saveSubmission from './src/api/saveSubmission';
 import createSubscription from './src/api/createSubscription';
 import submitAd from './src/api/submitAd';
 import submitLetter from './src/api/submitLetter';
-import adminLogin from '../edumotive-admin/src/api/adminLogin';
-import adminList from '../edumotive-admin/src/api/adminList';
-import adminSave from '../edumotive-admin/src/api/adminSave';
-import adminStats from '../edumotive-admin/src/api/adminStats';
-import { ZiteError, type AuthContextUser } from './src/zite-compat/backend';
+import { ZiteError, type AuthContextUser, type EndpointDefinition } from './src/zite-compat/backend';
 import { ensureDbReady, getUpload, isTursoEnabled, saveUpload, zite } from './src/zite-compat/db';
 
-const endpoints = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type EndpointMap = Record<string, EndpointDefinition<any, any, any>>;
+
+const publicEndpoints: EndpointMap = {
   getSite,
   getCatalog,
   getMe,
@@ -32,11 +31,7 @@ const endpoints = {
   createSubscription,
   submitAd,
   submitLetter,
-  adminLogin,
-  adminList,
-  adminSave,
-  adminStats,
-} as const;
+};
 
 const pdfCache = new Map<string, Uint8Array>();
 
@@ -157,7 +152,8 @@ function parseUser(req: express.Request): AuthContextUser | null {
   return null;
 }
 
-export function createApiApp(): express.Express {
+export function createApiApp(extraEndpoints: EndpointMap = {}): express.Express {
+  const endpoints: EndpointMap = { ...publicEndpoints, ...extraEndpoints };
   const app = express();
   app.use((req, _res, next) => {
     const r = req as express.Request & { _body?: boolean; body?: unknown };
@@ -270,10 +266,13 @@ export function createApiApp(): express.Express {
 }
 
 let cachedApp: express.Express | null = null;
+let cachedKey = '';
 
-export async function getApiApp(): Promise<express.Express> {
-  if (!cachedApp) {
-    cachedApp = createApiApp();
+export async function getApiApp(extraEndpoints: EndpointMap = {}): Promise<express.Express> {
+  const key = Object.keys(extraEndpoints).sort().join(',');
+  if (!cachedApp || cachedKey !== key) {
+    cachedApp = createApiApp(extraEndpoints);
+    cachedKey = key;
   }
   return cachedApp;
 }
