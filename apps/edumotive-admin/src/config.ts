@@ -137,7 +137,7 @@ export const RESOURCES: Resource[] = [
     ] },
   { path: 'members', title: 'Student & Author Profiles', icon: UserCircle, table: 'profiles', titleKey: 'displayName',
     fields: [
-      { key: 'avatar', label: 'Photo', type: 'image', list: true }, { key: 'displayName', label: 'Name', type: 'text', list: true }, { key: 'role', label: 'Role', type: 'select', options: ['Student', 'Author'], list: true },
+      { key: 'avatar', label: 'Photo', type: 'image', list: true }, { key: 'displayName', label: 'Name', type: 'text', list: true }, { key: 'role', label: 'Role', type: 'select', options: ['Student', 'Author', 'Admin', 'Other'], list: true },
       { key: 'className', label: 'Class', type: 'text', list: true }, { key: 'institution', label: 'Institution', type: 'text', list: true }, { key: 'username', label: 'Username', type: 'text' }, { key: 'bio', label: 'Bio', type: 'textarea' },
     ] },
 ];

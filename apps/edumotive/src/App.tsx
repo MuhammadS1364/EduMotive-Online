@@ -1,12 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, Link } from 'react-router-dom';
+import { useAuth, loginWithRedirect } from 'zitejs/auth';
 import { Toaster } from '@project/components/ui/sonner';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@project/components/ui/dialog';
 import { Button } from '@project/components/ui/button';
 import { DataProvider, useData } from './lib/data';
 import { applyTheme, watchSystemTheme } from './lib/theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AdSpot from './components/AdSpot';
+import ProfileForm from './components/ProfileForm';
 import Home from './pages/Home';
 import Articles from './pages/Articles';
 import ArticlePage from './pages/ArticlePage';
@@ -15,6 +18,8 @@ import { AuthorsList, AuthorProfile } from './pages/Authors';
 import { Programs, Results } from './pages/ProgramsResults';
 import About from './pages/About';
 import Subscribe from './pages/Subscribe';
+import Profile from './pages/Profile';
+import Write from './pages/Write';
 import Advertise from './pages/Advertise';
 import Contact from './pages/Contact';
 import News from './pages/News';
@@ -29,6 +34,20 @@ function PageTransition() {
         <Outlet />
       </motion.div>
     </AnimatePresence>
+  );
+}
+
+function Onboarding() {
+  const { user } = useAuth();
+  const { me, meLoading } = useData();
+  const open = !!user && !!me && !me.profile && !meLoading;
+  return (
+    <Dialog open={open}>
+      <DialogContent className="glass-strong max-w-xl max-h-[90vh] overflow-y-auto [&>button]:hidden">
+        <DialogHeader><DialogTitle className="font-display text-2xl">Welcome to EduMotive</DialogTitle><DialogDescription>Tell us about yourself — your class and institution — to finish signing up.</DialogDescription></DialogHeader>
+        <ProfileForm />
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -47,6 +66,13 @@ function SeoTags() {
   return null;
 }
 
+function RequireAuth({ children }: { children: ReactNode }) {
+  const { user, isLoading } = useAuth();
+  useEffect(() => { if (!isLoading && !user) loginWithRedirect(); }, [isLoading, user]);
+  if (!user) return <div className="py-24 text-center text-muted-foreground">Redirecting to sign in…</div>;
+  return <>{children}</>;
+}
+
 function Layout() {
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -55,6 +81,7 @@ function Layout() {
       <main className="flex-1"><PageTransition /></main>
       <Footer />
       <AdSpot />
+      <Onboarding />
       <SeoTags />
       <Toaster />
     </div>
@@ -84,6 +111,9 @@ export default function App() {
             <Route path="/issues/:id" element={<Magazine />} />
             <Route path="/subscribe" element={<Subscribe />} />
             <Route path="/advertise" element={<Advertise />} />
+            <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+            <Route path="/write" element={<RequireAuth><Write /></RequireAuth>} />
+            <Route path="/write/:id" element={<RequireAuth><Write /></RequireAuth>} />
             <Route path="*" element={<div className="py-24 text-center space-y-4"><h1 className="text-4xl font-black">Page not found</h1><Button asChild><Link to="/">Go to Home</Link></Button></div>} />
           </Route>
         </Routes>

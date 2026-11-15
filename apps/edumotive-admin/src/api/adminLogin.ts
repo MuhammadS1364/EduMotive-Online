@@ -3,11 +3,11 @@ import { createEndpoint } from 'zitejs/backend';
 import { assertAdmin } from '../lib/adminAuth';
 
 export default createEndpoint({
-  description: 'Checks the admin access code',
-  inputSchema: z.object({ code: z.string() }),
+  description: 'Checks the admin email and password',
+  inputSchema: z.object({ email: z.string(), password: z.string() }),
   outputSchema: z.object({ key: z.string() }),
   execute: async ({ input }) => {
-    const key = input.code.trim();
+    const key = `${input.email.trim().toLowerCase()}:${input.password}`;
     assertAdmin(key);
     return { key };
   },

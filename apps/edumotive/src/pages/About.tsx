@@ -49,17 +49,6 @@ export default function About() {
           </div>
         ))}
       </section>
-      {(site?.initiatives ?? []).length > 0 && (
-        <section className="glass rounded-[2rem] p-6 md:p-10 text-center space-y-6">
-          <div><p className="kicker text-muted-foreground">An initiative of</p><h2 className="text-2xl md:text-3xl font-black mt-1">EduMotive is an initiative of</h2></div>
-          <div className="flex flex-wrap justify-center gap-8">
-            {(site?.initiatives ?? []).map((o) => {
-              const inner = <>{o.logo && <img src={o.logo} alt={o.name} className="h-20 w-auto max-w-[180px] mx-auto object-contain transition-transform duration-300 hover:scale-105" />}<p className="font-semibold mt-3">{o.name}</p></>;
-              return o.link ? <a key={o.id} href={o.link} target="_blank" rel="noreferrer" className="w-44">{inner}</a> : <div key={o.id} className="w-44">{inner}</div>;
-            })}
-          </div>
-        </section>
-      )}
       {s.teamPhoto && <figure><img src={s.teamPhoto} alt="EduMotive team" className="w-full rounded-[2rem] shadow-2xl object-cover max-h-[560px]" /><figcaption className="text-center text-sm text-muted-foreground mt-3">Team EduMotive</figcaption></figure>}
       {site.team.length > 0 && (
         <section>
@@ -79,6 +68,17 @@ export default function About() {
           </>)}
         </DialogContent>
       </Dialog>
+      {(site?.initiatives ?? []).length > 0 && (
+        <section className="glass rounded-[2rem] p-6 md:p-10 text-center space-y-6">
+          <div><p className="kicker text-muted-foreground">An initiative of</p><h2 className="text-2xl md:text-3xl font-black mt-1">EduMotive is an initiative of</h2></div>
+          <div className="flex flex-wrap justify-center gap-8">
+            {(site?.initiatives ?? []).map((o) => {
+              const inner = <>{o.logo && <img src={o.logo} alt={o.name} className="h-20 w-auto max-w-[180px] mx-auto object-contain transition-transform duration-300 hover:scale-105" />}<p className="font-semibold mt-3">{o.name}</p></>;
+              return o.link ? <a key={o.id} href={o.link} target="_blank" rel="noreferrer" className="w-44">{inner}</a> : <div key={o.id} className="w-44">{inner}</div>;
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
